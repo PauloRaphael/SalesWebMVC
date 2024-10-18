@@ -22,7 +22,7 @@ var app = builder.Build();
 
 // Add seed logic after app building
 using (var scope = app.Services.CreateScope())
-{
+{ 
     var services = scope.ServiceProvider;
 
     // Fetch the SeedingService and call Seed
@@ -30,7 +30,7 @@ using (var scope = app.Services.CreateScope())
     seedingService.Seed();
 }
 
-// Configure the HTTP request pipeline
+// Configure the HTTP request pipeline 
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
