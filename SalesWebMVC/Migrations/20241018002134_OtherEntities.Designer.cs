@@ -12,7 +12,7 @@ using SalesWebMVC.Data;
 namespace SalesWebMVC.Migrations
 {
     [DbContext(typeof(SalesWebMVCContext))]
-    [Migration("20241017230747_OtherEntities")]
+    [Migration("20241018002134_OtherEntities")]
     partial class OtherEntities
     {
         /// <inheritdoc />
@@ -59,16 +59,14 @@ namespace SalesWebMVC.Migrations
                     b.Property<int>("SellerId")
                         .HasColumnType("int");
 
-                    b.Property<int>("StatusId")
+                    b.Property<int>("Status")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("SellerId");
 
-                    b.HasIndex("StatusId");
-
-                    b.ToTable("Seller");
+                    b.ToTable("SalesRecord");
                 });
 
             modelBuilder.Entity("SalesWebMVC.Models.Seller", b =>
@@ -100,7 +98,7 @@ namespace SalesWebMVC.Migrations
 
                     b.HasIndex("DepartmentId");
 
-                    b.ToTable("SalesRecord");
+                    b.ToTable("Seller");
                 });
 
             modelBuilder.Entity("SalesWebMVC.Models.SalesRecord", b =>
@@ -111,15 +109,7 @@ namespace SalesWebMVC.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("SalesWebMVC.Models.SalesRecord", "Status")
-                        .WithMany()
-                        .HasForeignKey("StatusId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Seller");
-
-                    b.Navigation("Status");
                 });
 
             modelBuilder.Entity("SalesWebMVC.Models.Seller", b =>
