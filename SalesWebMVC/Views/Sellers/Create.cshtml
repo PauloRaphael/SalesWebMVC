@@ -1,4 +1,4 @@
-﻿@model Seller
+﻿@model SalesWebMVC.Models.ViewModels.SellerFormViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -13,17 +13,21 @@
     <div class="col-md-4">
         <form asp-action="Create">
             <div class="form">
-                <label asp-for="Name" class="form-label col-form-label"></label>
-                <input asp-for="Name" class="form-control col-form-label" />
+                <label asp-for="Seller.Name" class="form-label col-form-label"></label>
+                <input asp-for="Seller.Name" class="form-control col-form-label" />
             </div><div class="form">
-                <label asp-for="Email" class="form-label col-form-label"></label>
-                <input asp-for="Email" class="form-control"/>
+                <label asp-for="Seller.Email" class="form-label col-form-label"></label>
+                <input asp-for="Seller.Email" class="form-control" />
             </div><div class="form">
-                <label asp-for="BirthDate" class="form-label col-form-label"></label>
-                <input asp-for="BirthDate" class="form-control"/>
+                <label asp-for="Seller.BirthDate" class="form-label col-form-label"></label>
+                <input asp-for="Seller.BirthDate" class="form-control" />
             </div><div class="form">
-                <label asp-for="BaseSalary" class="form-label col-form-label"></label>
-                <input asp-for="BaseSalary" class="form-control"/>
+                <label asp-for="Seller.BaseSalary" class="form-label col-form-label"></label>
+                <input asp-for="Seller.BaseSalary" class="form-control" />
+            </div>
+            <div class="form">
+                <label asp-for="Seller.DepartmentId" class="form-label col-form-label"></label>
+                <select asp-for="Seller.DepartmentId" asp-items="@(new SelectList(Model.Departments, "Id", "Name"))" class="form-cotrol"></select>
             </div>
             <div class="form">
                 <input type="submit" value="Create" class="btn btn-primary my-4" />
