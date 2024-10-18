@@ -10,7 +10,7 @@ namespace SalesWebMVC.Controllers
 
         private readonly SellerService _sellerService;
         private readonly DepartmentService _departmentService;
-
+         
         public SellersController(SellerService sellerService, DepartmentService departmentService)
         {
             _sellerService = sellerService;
@@ -64,5 +64,23 @@ namespace SalesWebMVC.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
+        public IActionResult Details(int? id) {
+
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var obj = _sellerService.FindById(id.Value);
+
+            if (obj == null)
+            {
+                return NotFound();
+            }
+
+            return View(obj);
+        }
+
     }
 }
