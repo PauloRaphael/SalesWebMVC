@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.DataAnnotations;
 using SalesWebMVC.Models;
 using SalesWebMVC.Models.ViewModels;
 using SalesWebMVC.Services;
-using SalesWebMVC.Services.Exceptions;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics;
 
 namespace SalesWebMVC.Controllers
@@ -28,6 +28,7 @@ namespace SalesWebMVC.Controllers
 
         public IActionResult Create()
         {
+            
             var departments = _departmentService.FindAll();
             var viewModel = new SellerFormViewModel { Departments = departments };
             return View(viewModel);
@@ -37,6 +38,20 @@ namespace SalesWebMVC.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(Seller seller)
         {
+            bool isNameValid = ValidateProperty(seller, nameof(Seller.Name));
+            bool isEmailValid = ValidateProperty(seller, nameof(Seller.Email));
+            bool isBirthDateValid = ValidateProperty(seller, nameof(Seller.BirthDate));
+            bool isBaseSalaryValid = ValidateProperty(seller, nameof(Seller.BaseSalary));
+
+            bool isValid = isNameValid && isEmailValid && isBirthDateValid && isBaseSalaryValid;
+
+            if (!isValid)
+            {
+                var departments = _departmentService.FindAll();
+                var viewModel = new SellerFormViewModel { Seller = seller, Departments = departments };
+                return View(viewModel);
+            }
+
             _sellerService.Insert(seller);
             return RedirectToAction(nameof(Index));
         }
@@ -110,6 +125,20 @@ namespace SalesWebMVC.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, Seller seller)
         {
+            bool isNameValid = ValidateProperty(seller, nameof(Seller.Name));
+            bool isEmailValid = ValidateProperty(seller, nameof(Seller.Email));
+            bool isBirthDateValid = ValidateProperty(seller, nameof(Seller.BirthDate));
+            bool isBaseSalaryValid = ValidateProperty(seller, nameof(Seller.BaseSalary));
+
+            bool isValid = isNameValid && isEmailValid && isBirthDateValid && isBaseSalaryValid;
+
+            if (!isValid)
+            {
+                var departments = _departmentService.FindAll();
+                var viewModel = new SellerFormViewModel { Seller = seller, Departments = departments };
+                return View(viewModel);
+            }
+
             if (seller.Id != id)
             {
                 return RedirectToAction(nameof(Error), new { Message = "Id mismatch" });
@@ -134,6 +163,12 @@ namespace SalesWebMVC.Controllers
 
             return View(viewModel);
 
+        }
+        private bool ValidateProperty(object model, string propertyName)
+        {
+            var context = new ValidationContext(model, serviceProvider: null, items: null) { MemberName = propertyName };
+            var results = new List<ValidationResult>();
+            return Validator.TryValidateProperty(model.GetType().GetProperty(propertyName).GetValue(model), context, results);
         }
 
     }
