@@ -4,48 +4,44 @@
 }
 
 <h2>@ViewData["Title"]</h2>
-<hr />
 
 <div>
-    <dl style="
-        display: grid;
-        grid-template-rows: auto auto;
-        grid-auto-columns: 1fr;
-        grid-auto-flow: column;
-    ">
+    <h4>Seller</h4>
+    <hr />
+    <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(Model => Model.Name)
+            @Html.DisplayNameFor(model => model.Name)
         </dt>
         <dd>
-            @Html.DisplayFor(Model => Model.Name)
+            @Html.DisplayFor(model => model.Name)
         </dd>
         <dt>
-            @Html.DisplayNameFor(Model => Model.Email)
+            @Html.DisplayNameFor(model => model.Email)
         </dt>
         <dd>
-            @Html.DisplayFor(Model => Model.Email)
+            @Html.DisplayFor(model => model.Email)
         </dd>
         <dt>
-            @Html.DisplayNameFor(Model => Model.BirthDate)
+            @Html.DisplayNameFor(model => model.BirthDate)
         </dt>
         <dd>
-            @Html.DisplayFor(Model => Model.BirthDate)
+            @Html.DisplayFor(model => model.BirthDate)
         </dd>
         <dt>
-            @Html.DisplayNameFor(Model => Model.BaseSalary)
+            @Html.DisplayNameFor(model => model.BaseSalary)
         </dt>
         <dd>
-            @Html.DisplayFor(Model => Model.BaseSalary)
-        </dd> <dt>
-            @Html.DisplayNameFor(Model => Model.Department)
+            @Html.DisplayFor(model => model.BaseSalary)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Department)
         </dt>
         <dd>
-            @Html.DisplayFor(Model => Model.Department.Name)
+            @Html.DisplayFor(model => model.Department.Name)
         </dd>
     </dl>
-</div> 
-
+</div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-secondary ">Edit</a>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-default">Edit</a>
+    <a asp-action="Index">Back to list</a>
 </div>
